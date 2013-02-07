@@ -71,7 +71,7 @@ class StepSlider(Container):
 							size=scale_size,
 							position=(0,15))
 
-			marker_position_raio = self.slider._getWidth() / (number_of_steps-1)
+			marker_position_ratio = self.slider._getWidth() / (number_of_steps-1)
 			for i in range(number_of_steps):
 				name = str(i)
 				if self.scale_type == 2:
@@ -85,7 +85,7 @@ class StepSlider(Container):
 				elif i == number_of_steps-1:
 					marker._setX(scale_box.size[0]-marker.size[0])
 				else:
-					marker._setX((marker_position_raio*i)-(marker.size[0]/2))
+					marker._setX((marker_position_ratio*i)-(marker.size[0]/2))
 				marker._setY(0)
 				scale_box.addChild(marker)
 			scale_box.adaptLayout()
