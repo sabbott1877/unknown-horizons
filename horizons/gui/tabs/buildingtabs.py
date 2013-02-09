@@ -30,6 +30,8 @@ from horizons.component.depositcomponent import DepositComponent
 class TowerOverviewTab(OverviewTab): # defensive tower
 	widget = 'overview_tower.xml'
 	helptext = _("Tower overview")
+	show_emblem = True
+
 
 class SignalFireOverviewTab(OverviewTab):
 	widget = 'overview_signalfire.xml'

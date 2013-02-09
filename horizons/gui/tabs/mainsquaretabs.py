@@ -56,6 +56,7 @@ class AccountTab(MainSquareTab):
 	"""Display basic income and expenses of a settlement"""
 	widget = 'tab_account.xml'
 	helptext = _("Account")
+	show_emblem = True
 
 	def init_widget(self):
 		super(AccountTab, self).init_widget()
@@ -96,6 +97,7 @@ class AccountTab(MainSquareTab):
 
 class MainSquareOverviewTab(AccountTab):
 	helptext = _('Main square overview')
+	show_emblem = True
 
 	def init_widget(self):
 		super(MainSquareOverviewTab, self).init_widget()
