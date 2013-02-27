@@ -19,48 +19,46 @@
 # 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # ###################################################
 
+import ast
+
 from fife.extensions.pychan.widgets import Container, Slider, Label, Icon
-from fife.extensions.pychan.widgets.common import Attr, IntAttr
+from fife.extensions.pychan.widgets.common import Attr
 
 class StepSlider(Container):
 	""" Slider which has fixed value and snaps to those.
 		HACK/NOTE: You need to call widget.init_widget() from the game code.
 
 		Set widget.callback from code to call function to update value display labels etc.
-		@param steps ";" separated string of values
-		@param scale_type 0: None, 1: Value labels, 2: Markers"""
+		@param steps "," separated string of values
+		@param scale_type Valid types 'marker' or 'label'"""
 
-	ATTRIBUTES = Container.ATTRIBUTES + [ Attr('steps'), IntAttr('scale_type') ]
+	ATTRIBUTES = Container.ATTRIBUTES + [Attr('steps'), Attr('scale_type')]
 
-	def __init__(self, steps=None, scale_type=1, callback=None, **kwargs):
+	def __init__(self, steps=None, scale_type=None, callback=None, **kwargs):
 		super(StepSlider, self).__init__(**kwargs)
 		self.steps = steps
 		self.scale_type = scale_type
 		self.callback = callback
 
 	def init_widget(self):
-		#If user passes unkown scale_type value, assume No scale
-		if self.scale_type not in (0, 1, 2):
-			self.scale_type = 0
+		#FIXME: This has to be called externally. Pychan limitation?
 
-		slider_size = (self.size[0], self.size[1] if not self.scale_type else self.size[1]-15) #Make space for scale
+		#Make place for marker if needed
+		slider_size = (self.size[0], self.size[1] if not self.scale_type else self.size[1] - 15)
 
+		#Create list containing slider true values
 		self.steps_list = []
-		#Create dictionary containing slider indices with corresponding true values
-		self.steps_list = sorted(float(step) for step in self.steps.split(";"))
-		self.steps_dict = dict(zip(xrange(len(self.steps_list)), self.steps_list))
+		#self.steps_list = sorted(float(step) for step in self.steps.split(";"))
+		self.steps_list = ast.literal_eval(self.steps)
 
 		number_of_steps = len(self.steps_list)
 
 		# Create and add slider
 		self.slider = Slider(name=self.name+"_slider",
 							size=slider_size,
-							position=(0,0),
 							step_length=1.0,
 							scale_start=0.0,
-							scale_end=float(number_of_steps-1),
-							is_focusable=0,
-							orientation=0)
+							scale_end=float(number_of_steps - 1))
 		self.addChild(self.slider)
 		self.slider.capture(self._update_slider, "action")
 
@@ -71,24 +69,23 @@ class StepSlider(Container):
 							size=scale_size,
 							position=(0,15))
 
-			marker_position_ratio = self.slider._getWidth() / (number_of_steps-1)
+			marker_position_ratio = self.slider.width / (number_of_steps - 1)
 			for i in range(number_of_steps):
 				name = str(i)
-				if self.scale_type == 2:
+				if self.scale_type == 'marker':
 					marker = Icon(name=name, image="content/gui/icons/widgets/slider_marker.png")
 				else:
-					marker = Label(name=name, text=unicode(str(self.steps_dict[i])))
-					marker.resizeToContent()
+					marker = Label(name=name, text=unicode(str(self.steps_list[i])))
+					marker.resizeToContent() #pychan seems to need this
 
 				if i == 0:
-					marker._setX(0)
-				elif i == number_of_steps-1:
-					marker._setX(scale_box.size[0]-marker.size[0])
+					marker.x = 0
+				elif i == number_of_steps - 1:
+					marker.x = scale_box.size[0]-marker.size[0]
 				else:
-					marker._setX((marker_position_ratio*i)-(marker.size[0]/2))
-				marker._setY(0)
+					marker.x = (marker_position_ratio*i)-(marker.size[0]/2)
+				marker.y = 0
 				scale_box.addChild(marker)
-			scale_box.adaptLayout()
 			self.addChild(scale_box)
 
 	def _get_steps(self):
@@ -102,31 +99,24 @@ class StepSlider(Container):
 		return self._scale_type
 
 	def _set_scale_type(self, scale_type):
-		self._scale_type = scale_type
+		#Check and set scale_type if valid
+		self._scale_type = scale_type if scale_type in ('marker', 'label') else None
 	scale_type = property(_get_scale_type, _set_scale_type)
 
 	def getData(self):
 		#Return true value corresponding to current index
-		return self.steps_dict[int(self.slider._getValue())]
+		return self.steps_list[int(self.slider.value)]
 
 	def setData(self, data):
 		#Find and set value closest to user input which is valid in the list
 		real_value = min(self.steps_list, key=lambda x:abs(x-float(data)))
-		for index, value in self.steps_dict.iteritems():
-			if value == real_value:
-				self.slider._setValue(float(index))
+		self.slider.value = float(self.steps_list.index(real_value))
 
-	def _getValue(self):
-		return self.getData()
-
-	def _setValue(self, value):
-		self.setData(value)
-	value = property(_getValue, _setValue)
+	value = property(getData, setData)
 
 	def _update_slider(self, event):
-		old_val = self.slider._getValue()
-		new_val = round(self.slider._getValue()) #Value of nearest slider index
-		self.slider._setValue(new_val) #Snap to nearest index
+		old_val = self.slider.value
+		new_val = round(self.slider.value) #Value of nearest slider index
+		self.slider.value = new_val #Snap to nearest index
 		if self.callback:
 			self.callback()
-
