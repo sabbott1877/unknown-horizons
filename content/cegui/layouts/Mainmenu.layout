@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<GUILayout>
+    <Window Type="DefaultWindow" Name="MainMenu">
+		<Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+
+		<Window Type="TaharezLook/StaticImage" Name="background"></Window>
+		<Window Type="TaharezLook/Button" Name="startSingleplayer">
+			<Property Name="Text" >Start singleplayer</Property>
+            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
+            <Property Name="UnifiedAreaRect" Value="{{0.128412,0},{0.841464,0},{0.365583,0},{0.926003,0}}" />
+		</Window>
+    </Window>
+</GUILayout>
