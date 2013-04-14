@@ -161,6 +161,7 @@ class Fife(CEGUIApplicationBase):
 		self._initGuiManager()
 		self._loadCEGuiSettings()
 		PyCEGUI.SchemeManager.getSingleton().create("TaharezLook.scheme")
+		PyCEGUI.SchemeManager.getSingleton().create("UH.scheme")
 
 		self.root = PyCEGUI.WindowManager.getSingleton().createWindow( "DefaultWindow", "_MasterRoot" )
 		PyCEGUI.System.getSingleton().setGUISheet(self.root)

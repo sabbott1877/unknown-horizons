@@ -1,15 +1,223 @@
-<?xml version="1.0" encoding="UTF-8"?>
- 
+<?xml version="1.0"?>
 <GUILayout>
-    <Window Type="DefaultWindow" Name="MainMenu">
-		<Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
-
-		<Window Type="TaharezLook/StaticImage" Name="background"></Window>
-		<Window Type="TaharezLook/Button" Name="startSingleplayer">
-			<Property Name="Text" >Start singleplayer</Property>
-            <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}" />
-            <Property Name="UnifiedAreaRect" Value="{{0.128412,0},{0.841464,0},{0.365583,0},{0.926003,0}}" />
-		</Window>
+  <Window Name="menu" Type="DefaultWindow">
+    <Property Name="UnifiedMaxSize" Value="{{1,0},{1,0}}"/>
+    <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}"/>
+    <Window Type="TaharezLook/StaticImage">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="Disabled" Value="True"/>
+      <Property Name="Image" Value="set:content/gui/images/background/mainmenu/wheel.png image:full_image"/>
+      <Property Name="UnifiedPosition" Value="{{0,212},{0,44}}"/>
+      <Property Name="UnifiedSize" Value="{{0,600},{0,600}}"/>
     </Window>
+    <Window Type="TaharezLook/StaticImage">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="Disabled" Value="True"/>
+      <Property Name="Image" Value="set:content/gui/images/logos/fife.png image:full_image"/>
+      <Property Name="UnifiedPosition" Value="{{0,775},{0,20}}"/>
+      <Property Name="UnifiedSize" Value="{{0,220},{0,107}}"/>
+    </Window>
+    <Window Name="version_label" Type="TaharezLook/StaticText">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="VertFormatting" Value="TopAligned"/>
+      <Property Name="Text">Unknown Horizons</Property>
+      <Property Name="UnifiedPosition" Value="{{0,735},{0,735}}"/>
+      <Property Name="UnifiedSize" Value="{{0,100},{0,30}}"/>
+    </Window>
+    <Window Name="single_label" Type="TaharezLook/StaticText">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="VertFormatting" Value="TopAligned"/>
+      <Property Name="Text">Singleplayer</Property>
+      <Property Name="UnifiedPosition" Value="{{0,531},{0,100}}"/>
+      <Property Name="UnifiedSize" Value="{{0,100},{0,30}}"/>
+    </Window>
+    <Window Type="TaharezLook/StaticImage">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="Disabled" Value="True"/>
+      <Property Name="Image" Value="set:content/gui/images/buttons/mainmenu_button_bg.png image:full_image"/>
+      <Property Name="UnifiedPosition" Value="{{0,457},{0,144}}"/>
+      <Property Name="UnifiedSize" Value="{{0,103},{0,100}}"/>
+    </Window>
+    <Window Name="single_button" Type="TaharezLook/ImageButton">
+      <Property Name="NormalImage" Value="set:content/gui/icons/mainmenu/compass.png image:full_image"/>
+      <Property Name="HoverImage" Value="set:content/gui/icons/mainmenu/compass.png image:full_image"/>
+      <Property Name="PushedImage" Value="set:content/gui/icons/mainmenu/compass.png image:full_image"/>
+      <Property Name="DisabledImage" Value="set:content/gui/icons/mainmenu/compass.png image:full_image"/>
+      <Property Name="UnifiedSize" Value="{{0,48},{0,48}}"/>
+      <Property Name="UnifiedPosition" Value="{{0,488},{0,169}}"/>
+    </Window>
+    <Window Name="multi_label" Type="TaharezLook/StaticText">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="VertFormatting" Value="TopAligned"/>
+      <Property Name="Text">Multiplayer</Property>
+      <Property Name="UnifiedPosition" Value="{{0,680},{0,200}}"/>
+      <Property Name="UnifiedSize" Value="{{0,100},{0,30}}"/>
+    </Window>
+    <Window Type="TaharezLook/StaticImage">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="Disabled" Value="True"/>
+      <Property Name="Image" Value="set:content/gui/images/buttons/mainmenu_button_bg.png image:full_image"/>
+      <Property Name="UnifiedPosition" Value="{{0,566},{0,188}}"/>
+      <Property Name="UnifiedSize" Value="{{0,103},{0,100}}"/>
+    </Window>
+    <Window Name="multi_button" Type="TaharezLook/ImageButton">
+      <Property Name="NormalImage" Value="set:content/gui/icons/mainmenu/multiplayer.png image:full_image"/>
+      <Property Name="HoverImage" Value="set:content/gui/icons/mainmenu/multiplayer.png image:full_image"/>
+      <Property Name="PushedImage" Value="set:content/gui/icons/mainmenu/multiplayer.png image:full_image"/>
+      <Property Name="DisabledImage" Value="set:content/gui/icons/mainmenu/multiplayer.png image:full_image"/>
+      <Property Name="UnifiedSize" Value="{{0,48},{0,48}}"/>
+      <Property Name="UnifiedPosition" Value="{{0,593},{0,211}}"/>
+    </Window>
+    <Window Name="settings_label" Type="TaharezLook/StaticText">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="VertFormatting" Value="TopAligned"/>
+      <Property Name="Text">Settings</Property>
+      <Property Name="UnifiedPosition" Value="{{0,710},{0,365}}"/>
+      <Property Name="UnifiedSize" Value="{{0,100},{0,30}}"/>
+    </Window>
+    <Window Type="TaharezLook/StaticImage">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="Disabled" Value="True"/>
+      <Property Name="Image" Value="set:content/gui/images/buttons/mainmenu_button_bg.png image:full_image"/>
+      <Property Name="UnifiedPosition" Value="{{0,612},{0,298}}"/>
+      <Property Name="UnifiedSize" Value="{{0,103},{0,100}}"/>
+    </Window>
+    <Window Name="settings_button" Type="TaharezLook/ImageButton">
+      <Property Name="NormalImage" Value="set:content/gui/icons/mainmenu/gears.png image:full_image"/>
+      <Property Name="HoverImage" Value="set:content/gui/icons/mainmenu/gears.png image:full_image"/>
+      <Property Name="PushedImage" Value="set:content/gui/icons/mainmenu/gears.png image:full_image"/>
+      <Property Name="DisabledImage" Value="set:content/gui/icons/mainmenu/gears.png image:full_image"/>
+      <Property Name="UnifiedSize" Value="{{0,48},{0,48}}"/>
+      <Property Name="UnifiedPosition" Value="{{0,637},{0,323}}"/>
+    </Window>
+    <Window Name="help_label" Type="TaharezLook/StaticText">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="VertFormatting" Value="TopAligned"/>
+      <Property Name="Text">Help</Property>
+      <Property Name="UnifiedPosition" Value="{{0,590},{0,518}}"/>
+      <Property Name="UnifiedSize" Value="{{0,100},{0,30}}"/>
+    </Window>
+    <Window Type="TaharezLook/StaticImage">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="Disabled" Value="True"/>
+      <Property Name="Image" Value="set:content/gui/images/buttons/mainmenu_button_bg.png image:full_image"/>
+      <Property Name="UnifiedPosition" Value="{{0,566},{0,406}}"/>
+      <Property Name="UnifiedSize" Value="{{0,103},{0,100}}"/>
+    </Window>
+    <Window Name="help_button" Type="TaharezLook/ImageButton">
+      <Property Name="NormalImage" Value="set:content/gui/icons/mainmenu/help.png image:full_image"/>
+      <Property Name="HoverImage" Value="set:content/gui/icons/mainmenu/help.png image:full_image"/>
+      <Property Name="PushedImage" Value="set:content/gui/icons/mainmenu/help.png image:full_image"/>
+      <Property Name="DisabledImage" Value="set:content/gui/icons/mainmenu/help.png image:full_image"/>
+      <Property Name="UnifiedSize" Value="{{0,48},{0,48}}"/>
+      <Property Name="UnifiedPosition" Value="{{0,593},{0,431}}"/>
+    </Window>
+    <Window Name="quit_label" Type="TaharezLook/StaticText">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="VertFormatting" Value="TopAligned"/>
+      <Property Name="Text">Quit</Property>
+      <Property Name="UnifiedPosition" Value="{{0,442},{0,565}}"/>
+      <Property Name="UnifiedSize" Value="{{0,100},{0,30}}"/>
+    </Window>
+    <Window Type="TaharezLook/StaticImage">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="Disabled" Value="True"/>
+      <Property Name="Image" Value="set:content/gui/images/buttons/mainmenu_button_bg.png image:full_image"/>
+      <Property Name="UnifiedPosition" Value="{{0,457},{0,452}}"/>
+      <Property Name="UnifiedSize" Value="{{0,103},{0,100}}"/>
+    </Window>
+    <Window Name="quit_button" Type="TaharezLook/ImageButton">
+      <Property Name="NormalImage" Value="set:content/gui/icons/mainmenu/door.png image:full_image"/>
+      <Property Name="HoverImage" Value="set:content/gui/icons/mainmenu/door.png image:full_image"/>
+      <Property Name="PushedImage" Value="set:content/gui/icons/mainmenu/door.png image:full_image"/>
+      <Property Name="DisabledImage" Value="set:content/gui/icons/mainmenu/door.png image:full_image"/>
+      <Property Name="UnifiedSize" Value="{{0,48},{0,48}}"/>
+      <Property Name="UnifiedPosition" Value="{{0,484},{0,478}}"/>
+    </Window>
+    <Window Name="editor_label" Type="TaharezLook/StaticText">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="VertFormatting" Value="TopAligned"/>
+      <Property Name="Text">Editor</Property>
+      <Property Name="UnifiedPosition" Value="{{0,250},{0,500}}"/>
+      <Property Name="UnifiedSize" Value="{{0,100},{0,30}}"/>
+    </Window>
+    <Window Type="TaharezLook/StaticImage">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="Disabled" Value="True"/>
+      <Property Name="Image" Value="set:content/gui/images/buttons/mainmenu_button_bg.png image:full_image"/>
+      <Property Name="UnifiedPosition" Value="{{0,349},{0,406}}"/>
+      <Property Name="UnifiedSize" Value="{{0,103},{0,100}}"/>
+    </Window>
+    <Window Name="editor_button" Type="TaharezLook/ImageButton">
+      <Property Name="NormalImage" Value="set:content/gui/icons/mainmenu/editor.png image:full_image"/>
+      <Property Name="HoverImage" Value="set:content/gui/icons/mainmenu/editor.png image:full_image"/>
+      <Property Name="PushedImage" Value="set:content/gui/icons/mainmenu/editor.png image:full_image"/>
+      <Property Name="DisabledImage" Value="set:content/gui/icons/mainmenu/editor.png image:full_image"/>
+      <Property Name="UnifiedSize" Value="{{0,50},{0,50}}"/>
+      <Property Name="UnifiedPosition" Value="{{0,373},{0,430}}"/>
+    </Window>
+    <Window Name="credits_label" Type="TaharezLook/StaticText">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="VertFormatting" Value="TopAligned"/>
+      <Property Name="Text">Credits</Property>
+      <Property Name="UnifiedPosition" Value="{{0,165},{0,365}}"/>
+      <Property Name="UnifiedSize" Value="{{0,100},{0,30}}"/>
+    </Window>
+    <Window Type="TaharezLook/StaticImage">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="Disabled" Value="True"/>
+      <Property Name="Image" Value="set:content/gui/images/buttons/mainmenu_button_bg.png image:full_image"/>
+      <Property Name="UnifiedPosition" Value="{{0,302},{0,298}}"/>
+      <Property Name="UnifiedSize" Value="{{0,103},{0,100}}"/>
+    </Window>
+    <Window Name="credits_button" Type="TaharezLook/ImageButton">
+      <Property Name="NormalImage" Value="set:content/gui/icons/mainmenu/log.png image:full_image"/>
+      <Property Name="HoverImage" Value="set:content/gui/icons/mainmenu/log.png image:full_image"/>
+      <Property Name="PushedImage" Value="set:content/gui/icons/mainmenu/log.png image:full_image"/>
+      <Property Name="DisabledImage" Value="set:content/gui/icons/mainmenu/log.png image:full_image"/>
+      <Property Name="UnifiedSize" Value="{{0,48},{0,48}}"/>
+      <Property Name="UnifiedPosition" Value="{{0,328},{0,321}}"/>
+    </Window>
+    <Window Name="load_label" Type="TaharezLook/StaticText">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="VertFormatting" Value="TopAligned"/>
+      <Property Name="Text">Load game</Property>
+      <Property Name="UnifiedPosition" Value="{{0,190},{0,162}}"/>
+      <Property Name="UnifiedSize" Value="{{0,100},{0,30}}"/>
+    </Window>
+    <Window Type="TaharezLook/StaticImage">
+      <Property Name="FrameEnabled" Value="False"/>
+      <Property Name="BackgroundEnabled" Value="False"/>
+      <Property Name="Disabled" Value="True"/>
+      <Property Name="Image" Value="set:content/gui/images/buttons/mainmenu_button_bg.png image:full_image"/>
+      <Property Name="UnifiedPosition" Value="{{0,350},{0,188}}"/>
+      <Property Name="UnifiedSize" Value="{{0,103},{0,100}}"/>
+    </Window>
+    <Window Name="load_button" Type="TaharezLook/ImageButton">
+      <Property Name="NormalImage" Value="set:content/gui/icons/mainmenu/load.png image:full_image"/>
+      <Property Name="HoverImage" Value="set:content/gui/icons/mainmenu/load.png image:full_image"/>
+      <Property Name="PushedImage" Value="set:content/gui/icons/mainmenu/load.png image:full_image"/>
+      <Property Name="DisabledImage" Value="set:content/gui/icons/mainmenu/load.png image:full_image"/>
+      <Property Name="UnifiedSize" Value="{{0,48},{0,48}}"/>
+      <Property Name="UnifiedPosition" Value="{{0,376},{0,212}}"/>
+    </Window>
+  </Window>
 </GUILayout>

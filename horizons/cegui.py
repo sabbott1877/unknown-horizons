@@ -10,11 +10,8 @@ class MainMenu(object):
 		self.gui = PyCEGUI.WindowManager.getSingleton().loadWindowLayout("Mainmenu.layout")
 		self.gui.hide()
 
-		PyCEGUI.ImagesetManager.getSingleton().createFromImageFile("mm_background", "bg_1.png")
-		self.gui.getChild("background").setProperty("Image", "set:mm_background image:full_image")
-		self.gui.getChild("startSingleplayer").subscribeEvent(PyCEGUI.PushButton.EventClicked, self, 'start_game')
-
-		horizons.globals.fife.root.addChildWindow(self.gui)
+		self.gui.getChild("single_button").subscribeEvent(PyCEGUI.PushButton.EventClicked, self, 'start_game')
+		self.gui.getChild("single_label").subscribeEvent(PyCEGUI.Window.EventMouseClick, self, 'start_game')
 
 	def start_game(self, args):
 		options = StartGameOptions.create_start_scenario("content/scenarios/tutorial_en.yaml")
@@ -30,7 +27,16 @@ class MainMenu(object):
 class Gui(object):
 
 	def __init__(self):
+		self.root = PyCEGUI.WindowManager.getSingleton().createWindow("DefaultWindow")
+		horizons.globals.fife.root.addChildWindow(self.root)
+
+		self.background = PyCEGUI.WindowManager.getSingleton().createWindow("TaharezLook/StaticImage")
+		self.background.setProperty("FrameEnabled", "False")
+		self.background.setProperty("Image", "set:content/gui/images/background/mainmenu/bg_1.png image:full_image")
+		self.root.addChildWindow(self.background)
+
 		self.main = MainMenu()
+		self.root.addChildWindow(self.main.gui)
 
 	def show_main(self):
 		self.main.show()
@@ -39,7 +45,7 @@ class Gui(object):
 		pass
 
 	def close_all(self):
-		self.main.hide()
+		self.root.hide()
 
 	def subscribe(self):
 		pass
