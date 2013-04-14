@@ -28,6 +28,24 @@ TUTORIAL:
 Continue to horizons.session for further ingame digging.
 """
 
+import sys
+from horizons.ext.dummy import Dummy
+class Importer(object):
+
+	def find_module(self, fullname, path=None):
+		if (fullname.startswith('horizons.gui') or
+		    fullname.startswith('fife.extensions.pychan')):
+			return self
+
+		return None
+
+	def load_module(self, name):
+		mod = sys.modules.setdefault(name, Dummy())
+		return mod
+
+sys.meta_path = [Importer()]
+
+
 import os
 import sys
 import os.path
@@ -42,7 +60,7 @@ from fife import fife as fife_module
 import horizons.globals
 
 from horizons.savegamemanager import SavegameManager
-from horizons.gui import Gui
+from horizons.cegui import Gui
 from horizons.extscheduler import ExtScheduler
 from horizons.constants import AI, GAME, PATHS, NETWORK, SINGLEPLAYER, GAME_SPEED, GFX, VERSION
 from horizons.messaging import LoadingProgress

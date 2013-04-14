@@ -25,30 +25,26 @@ import shutil
 import sys
 import locale
 
+import PyCEGUI
 from fife import fife
-from fife.extensions.basicapplication import ApplicationBase
-from fife.extensions import pychan
+from fife.extensions.cegui.ceguibasicapplication import CEGUIApplicationBase
 from fife.extensions.serializers.simplexml import SimpleXMLSerializer
-from fife.extensions.fife_settings import FIFE_MODULE
+from fife.extensions.fife_settings import FIFE_MODULE, Setting
 
 from horizons.constants import LANGUAGENAMES, PATHS
 from horizons.engine import UH_MODULE, KEY_MODULE
-from horizons.engine.pychan_util import init_pychan
-from horizons.engine.settingshandler import SettingsHandler, get_screen_resolutions
-from horizons.engine.settingsdialog import SettingsDialog
 from horizons.engine.sound import Sound
 from horizons.util.loaders.sqliteanimationloader import SQLiteAnimationLoader
 from horizons.util.loaders.sqliteatlasloader import SQLiteAtlasLoader
 
 
-class Fife(ApplicationBase):
+class Fife(CEGUIApplicationBase):
 	"""
 	Basic initiation of engine. Followed later by init().
 	"""
 	def __init__(self):
 		self.pump = []
 
-		self._setting_handler = SettingsHandler(self)
 		self._setup_settings()
 		self._set_window_icon()
 
@@ -59,12 +55,11 @@ class Fife(ApplicationBase):
 
 		self.loadSettings()
 
-		self.pychan = pychan
-
 		self.quit_requested = False
 		self.break_requested = False
 		self.return_values = None
 		self._got_inited = False
+
 
 
 	# existing settings not part of this gui or the fife defaults
@@ -137,13 +132,7 @@ class Fife(ApplicationBase):
 					user_config_parser.set(modulename, entryname, value)
 				user_config_parser.save()
 
-		self._setting = SettingsDialog(app_name=UH_MODULE,
-		                               settings_file=PATHS.USER_CONFIG_FILE,
-		                               settings_gui_xml="settings.xml",
-		                               changes_gui_xml="requirerestart.xml",
-		                               default_settings_file=PATHS.CONFIG_TEMPLATE_FILE)
-
-		self._setting_handler.add_settings()
+		self._setting = Setting(settings_file="settings-cegui.xml")
 
 	def init(self):
 		"""Second initialization stage of engine
@@ -169,13 +158,12 @@ class Fife(ApplicationBase):
 		self.cursor_images = dict( (k, self.imagemanager.load(v)) for k, v in  cursor_images.iteritems() )
 		self.cursor.set(self.cursor_images['default'])
 
-		#init pychan
-		debug_pychan = self.get_fife_setting('PychanDebug') # default is False
-		self.pychan.init(self.engine, debug_pychan) # pychan debug mode may have performance impacts
+		self._initGuiManager()
+		self._loadCEGuiSettings()
+		PyCEGUI.SchemeManager.getSingleton().create("TaharezLook.scheme")
 
-		init_pychan()
-
-		self._setting_handler.apply_settings()
+		self.root = PyCEGUI.WindowManager.getSingleton().createWindow( "DefaultWindow", "_MasterRoot" )
+		PyCEGUI.System.getSingleton().setGUISheet(self.root)
 
 		self._got_inited = True
 
@@ -261,10 +249,6 @@ class Fife(ApplicationBase):
 		"""
 		"""
 		assert self._got_inited
-
-		# Screen Resolutions can only be queried after the engine has been inited
-		available_resolutions = get_screen_resolutions(self.get_fife_setting('ScreenResolution'))
-		self._setting.entries[FIFE_MODULE]['ScreenResolution'].initialdata = available_resolutions
 
 		self.engine.initializePumping()
 		self.loop()
