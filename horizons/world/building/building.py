@@ -23,10 +23,12 @@ import logging
 
 from fife import fife
 
+import horizons.globals
+
 from horizons.command.building import Build
 from horizons.component.storagecomponent import StorageComponent
 from horizons.component.componentholder import ComponentHolder
-from horizons.constants import RES, LAYERS, GAME
+from horizons.constants import ACTION_SETS, RES, LAYERS, GAME
 from horizons.scheduler import Scheduler
 from horizons.util.loaders.actionsetloader import ActionSetLoader
 from horizons.util.python import decorators
@@ -93,6 +95,32 @@ class BasicBuilding(ComponentHolder, ConcreteObject):
 		origin = self.position.origin
 		self._instance, action_name = self.getInstance(self.session, origin.x, origin.y,
 		    rotation=self.rotation, action_set_id=self._action_set_id, world_id=str(self.worldid))
+
+		######################################################################
+		# Color overlay test for instances
+		action_sets = ActionSetLoader.get_sets()
+		color_overlay = 'color_%s' % self._action
+		if color_overlay in action_sets[action_name]:
+			overlay_set = action_sets[action_name][color_overlay]
+
+			MAGENTA = fife.Color(255, 0, 255)
+			c = self.owner.color
+			color = fife.Color(c.r, c.g, c.b, 128)
+
+			for rotation in range(45, 360, 90):
+				ov_file = overlay_set[rotation].keys()[0]
+				ov_img = horizons.globals.fife.imagemanager.load(ov_file)
+
+				ov_anim = fife.Animation.createAnimation()
+				ov_anim.addFrame(ov_img, ACTION_SETS.DEFAULT_ANIMATION_LENGTH)
+
+				ov = fife.OverlayColors(ov_anim)
+				ov.changeColor(MAGENTA, color)
+
+				identifier = str(self._action)+'_'+str(action_name)
+				self._instance.addColorOverlay(identifier, rotation, ov)
+		# Color overlay test for instances
+		######################################################################
 
 		if self.has_running_costs: # Get payout every 30 seconds
 			interval = self.session.timer.get_ticks(GAME.INGAME_TICK_INTERVAL)
