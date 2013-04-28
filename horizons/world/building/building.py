@@ -97,8 +97,28 @@ class BasicBuilding(ComponentHolder, ConcreteObject):
 		    rotation=self.rotation, action_set_id=self._action_set_id, world_id=str(self.worldid))
 
 		######################################################################
-		# Color overlay test for instances
+		# Animation overlay test for instances
 		action_sets = ActionSetLoader.get_sets()
+		anim_overlay = 'anim_%s' % self._action
+		if anim_overlay in action_sets[action_name]:
+			overlay_set = action_sets[action_name][anim_overlay]
+			for rotation in range(45, 360, 90):
+				ov_file = overlay_set[rotation].keys()[0]
+				ov_img = horizons.globals.fife.imagemanager.load(ov_file)
+
+				ov_anim = fife.Animation.createAnimation()
+				ov_anim.addFrame(ov_img, ACTION_SETS.DEFAULT_ANIMATION_LENGTH)
+
+				identifier = str(self._action) + '_' + str(action_name)
+				# True: also convert color overlays attached to base frame(s) into animation
+				self._instance.convertToOverlays(identifier, True)
+
+				self._instance.addAnimationOverlay(identifier, rotation, 10, ov_anim)
+		# Animation overlay test for instances
+		######################################################################
+
+		######################################################################
+		# Color overlay test for instances
 		color_overlay = 'color_%s' % self._action
 		if color_overlay in action_sets[action_name]:
 			overlay_set = action_sets[action_name][color_overlay]
