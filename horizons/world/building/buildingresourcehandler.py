@@ -34,9 +34,9 @@ class BuildingResourceHandler(ResourceHandler):
 
 	def initialize(self):
 		super(BuildingResourceHandler, self).initialize()
-		self.__init()
+		self._init()
 
-	def __init(self):
+	def _init(self):
 		self.island.provider_buildings.append(self)
 		if self.has_component(Producer):
 			self.get_component(Producer).add_activity_changed_listener(self._set_running_costs_to_status)
@@ -45,7 +45,7 @@ class BuildingResourceHandler(ResourceHandler):
 
 	def load(self, db, worldid):
 		super(BuildingResourceHandler, self).load(db, worldid)
-		self.__init()
+		self._init()
 
 	def remove(self):
 		super(BuildingResourceHandler, self).remove()
