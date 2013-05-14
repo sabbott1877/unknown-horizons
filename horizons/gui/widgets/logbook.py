@@ -85,6 +85,7 @@ class LogBook(PickBeltWidget, Window):
 		  'stats_players' : Callback(self.show_statswidget, widget='players'),
 		  'stats_settlements' : Callback(self.show_statswidget, widget='settlements'),
 		  'stats_ships' : Callback(self.show_statswidget, widget='ships'),
+		  'stats_graphs' : Callback(self.show_statswidget, widget='graphs'),
 		  'chatTextField' : self._send_chat_message,
 		  })
 
@@ -371,9 +372,13 @@ class LogBook(PickBeltWidget, Window):
 	def _show_players(self):
 		self.session.ingame_gui.players_overview.show()
 
+	def _show_graphs(self):
+		self.session.ingame_gui.players_graphs.show()
+
 	def _hide_statswidgets(self):
 		statswidgets = [
 		  self.session.ingame_gui.players_overview,
+		  self.session.ingame_gui.players_graphs,
 		  self.session.ingame_gui.players_ships,
 		  self.session.ingame_gui.players_settlements,
 		  ]

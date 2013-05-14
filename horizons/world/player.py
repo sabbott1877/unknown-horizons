@@ -61,11 +61,18 @@ class Player(ComponentHolder, WorldObject):
 		super(Player, self).__init__(worldid=worldid)
 		self.__init(name, color, clientid, difficulty_level, 0)
 
+		self.stats_history = []
+
+	def update_stats(self):
+		self.stats_history.append(self.get_latest_stats())
+
 	def initialize(self, inventory):
 		super(Player, self).initialize()
 		if inventory:
 			for res, value in inventory.iteritems():
 				self.get_component(StorageComponent).inventory.alter(res, value)
+
+		Scheduler().add_new_object(self.update_stats, self, run_in=10, loop_interval=20, loops=-1)
 
 	def __init(self, name, color, clientid, difficulty_level, max_tier_notification, settlerlevel=0):
 		assert isinstance(color, Color)

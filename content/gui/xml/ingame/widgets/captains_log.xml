@@ -34,6 +34,7 @@
 	<hr />
 	<HBox name="header_button_row_stats" padding="5">
 		<Button name="stats_players" text="Players" is_focusable="0" />
+		<Button name="stats_graphs" text="Graphs" is_focusable="0" />
 		<Button name="stats_ships" text="My ships" is_focusable="0" />
 		<Button name="stats_settlements" text="My settlements" is_focusable="0" />
 	</HBox>

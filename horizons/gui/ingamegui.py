@@ -39,6 +39,7 @@ from horizons.gui.widgets.minimap import Minimap
 from horizons.gui.widgets.playersoverview import PlayersOverview
 from horizons.gui.widgets.playerssettlements import PlayersSettlements
 from horizons.gui.widgets.playersships import PlayersShips
+from horizons.gui.widgets.playersgraphs import PlayersGraphs
 from horizons.gui.widgets.resourceoverviewbar import ResourceOverviewBar
 from horizons.gui.windows import WindowManager
 from horizons.messaging import (TabWidgetChanged, SpeedChanged, NewDisaster, MineEmpty,
@@ -82,6 +83,11 @@ class IngameGui(LivingObject):
 
 		self.logbook = LogBook(self.session, self.windows)
 		self.players_overview = PlayersOverview(self.session)
+		self.players_graphs = PlayersGraphs(
+		                       targetrenderer=horizons.globals.fife.targetrenderer,
+		                       imagemanager=horizons.globals.fife.imagemanager,
+		                       session=self.session,
+		                       view=self.session.view)
 		self.players_settlements = PlayersSettlements(self.session)
 		self.players_ships = PlayersShips(self.session)
 
