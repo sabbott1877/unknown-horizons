@@ -33,7 +33,6 @@ from horizons.messaging import SettingChanged
 
 class PlayersGraphs(object):
 	def __init__(self, session, view, targetrenderer, imagemanager, renderer=None):
-		return
 		self.session = session
 		self.targetrenderer = targetrenderer
 		self.imagemanager = imagemanager
@@ -43,4 +42,7 @@ class PlayersGraphs(object):
 		pass
 
 	def show(self):
-		pass
+		dummy_point0 = fife.Point(0, 0)
+		dummy_point1 = fife.Point(0, 0)
+		dummy_point0.set(0, 100)
+		self.targetrenderer.addLine("a_Name", point0, point1, 50, 50, 50)
